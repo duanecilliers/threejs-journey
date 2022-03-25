@@ -11,20 +11,20 @@ const gui = new dat.GUI()
 /**
  * Textures
  */
- const textureLoader = new THREE.TextureLoader()
+const textureLoader = new THREE.TextureLoader()
 
- const doorAlphaTexture = textureLoader.load('/textures/door/alpha.jpg')
- const doorAmbientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
- const doorColorTexture = textureLoader.load('/textures/door/color.jpg')
- const doorHeightTexture = textureLoader.load('/textures/door/height.jpg')
- const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
- const doorNormalTexture = textureLoader.load('/textures/door/normal.jpg')
- const doorRoughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
- const matcapTexture = textureLoader.load('/textures/matcaps/2.png')
- const gradientTexture = textureLoader.load('/textures/gradients/5.jpg')
- gradientTexture.minFilter = THREE.NearestFilter
- gradientTexture.magFilter = THREE.NearestFilter
- gradientTexture.generateMipmaps = false
+const doorAlphaTexture = textureLoader.load('/textures/door/alpha.jpg')
+const doorAmbientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
+const doorColorTexture = textureLoader.load('/textures/door/color.jpg')
+const doorHeightTexture = textureLoader.load('/textures/door/height.jpg')
+const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
+const doorNormalTexture = textureLoader.load('/textures/door/normal.jpg')
+const doorRoughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
+const matcapTexture = textureLoader.load('/textures/matcaps/2.png')
+const gradientTexture = textureLoader.load('/textures/gradients/5.jpg')
+gradientTexture.minFilter = THREE.NearestFilter
+gradientTexture.magFilter = THREE.NearestFilter
+gradientTexture.generateMipmaps = false
 
 /**
  * Base
@@ -70,27 +70,65 @@ const scene = new THREE.Scene()
 // const material = new THREE.MeshToonMaterial()
 // material.gradientMap = gradientTexture
 
+// const material = new THREE.MeshStandardMaterial()
+// material.map = doorColorTexture
+// material.aoMap = doorAmbientOcclusionTexture
+// material.aoMapIntensity = 2
+// material.displacementMap = doorHeightTexture
+// material.displacementScale = 0.1
+// /**
+//  * Don't combine metalness and metalnessMap
+//  * Don't combine roughnessMap and roughnessMapMap
+//  */
+// // material.metalness = 0.45
+// // material.roughness = 0.65
+// material.metalnessMap = doorMetalnessTexture
+// material.roughnessMap = doorRoughnessTexture
+// material.normalMap = doorNormalTexture
+// material.normalScale.set(0.5, 0.5)
+// material.alphaMap = doorAlphaTexture
+// /** must set transparent = true when using alphaMap */
+// material.transparent = true
+// // material.wireframe = true
+
 const material = new THREE.MeshStandardMaterial()
-material.metalness = 0.45
-material.roughness = 0.65
-gui.add(material, 'metalness', 0.1, 1)
+material.metalness = 0.8
+material.roughness = 0.2
+
+gui.add(material, 'metalness', 0.1, 1, 0.0001)
+gui.add(material, 'roughness', 0.1, 1, 0.0001)
+gui.add(material, 'aoMapIntensity', 0, 10, 0.0001)
+gui.add(material, 'displacementScale', 0, 1, 0.0001)
 
 const sphere = new THREE.Mesh(
-    new THREE.SphereBufferGeometry(0.5, 16, 16),
+    new THREE.SphereBufferGeometry(0.5, 64, 64),
     material
 )
 sphere.position.x = -1.5
-
-const plane = new THREE.Mesh(
-    new THREE.PlaneBufferGeometry(1, 1),
-    material
+sphere.geometry.setAttribute(
+    'uv2',
+    new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2)
 )
 
+const plane = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1, 100, 100),
+    material
+)
+plane.geometry.setAttribute(
+    'uv2',
+    new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
+)
+console.log(plane.geometry.attributes.uv)
+
 const torus = new THREE.Mesh(
-    new THREE.TorusBufferGeometry(0.3, 0.2, 16,  32),
+    new THREE.TorusBufferGeometry(0.3, 0.2, 64, 128),
     material
 )
 torus.position.x = 1.5
+torus.geometry.setAttribute(
+    'uv2',
+    new THREE.BufferAttribute(torus.geometry.attributes.uv.array, 2)
+)
 
 scene.add(sphere, plane, torus)
 
