@@ -1,6 +1,12 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import * as dat from 'dat.gui'
+
+/**
+ * Debug
+ */
+const gui = new dat.GUI()
 
 /**
  * Textures
@@ -67,6 +73,7 @@ const scene = new THREE.Scene()
 const material = new THREE.MeshStandardMaterial()
 material.metalness = 0.45
 material.roughness = 0.65
+gui.add(material, 'metalness', 0.1, 1)
 
 const sphere = new THREE.Mesh(
     new THREE.SphereBufferGeometry(0.5, 16, 16),
