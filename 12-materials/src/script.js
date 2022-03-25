@@ -12,6 +12,7 @@ const gui = new dat.GUI()
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
+const cubeTextureLoader = new THREE.CubeTextureLoader()
 
 const doorAlphaTexture = textureLoader.load('/textures/door/alpha.jpg')
 const doorAmbientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
@@ -25,6 +26,15 @@ const gradientTexture = textureLoader.load('/textures/gradients/5.jpg')
 gradientTexture.minFilter = THREE.NearestFilter
 gradientTexture.magFilter = THREE.NearestFilter
 gradientTexture.generateMipmaps = false
+
+const environmentMapTexture = cubeTextureLoader.load([
+'/textures/environmentMaps/3/px.jpg',
+'/textures/environmentMaps/3/nx.jpg',
+'/textures/environmentMaps/3/py.jpg',
+'/textures/environmentMaps/3/ny.jpg',
+'/textures/environmentMaps/3/pz.jpg',
+'/textures/environmentMaps/3/nz.jpg'
+])
 
 /**
  * Base
@@ -94,6 +104,7 @@ const scene = new THREE.Scene()
 const material = new THREE.MeshStandardMaterial()
 material.metalness = 0.8
 material.roughness = 0.2
+material.envMap = environmentMapTexture
 
 gui.add(material, 'metalness', 0.1, 1, 0.0001)
 gui.add(material, 'roughness', 0.1, 1, 0.0001)
@@ -118,7 +129,6 @@ plane.geometry.setAttribute(
     'uv2',
     new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
 )
-console.log(plane.geometry.attributes.uv)
 
 const torus = new THREE.Mesh(
     new THREE.TorusBufferGeometry(0.3, 0.2, 64, 128),
