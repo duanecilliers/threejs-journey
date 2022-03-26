@@ -31,6 +31,8 @@ const particlesMaterial = new THREE.PointsMaterial({
     sizeAttenuation: true,
     alphaMap: particlesTexture,
     transparent: true,
+    // alphaTest: 0.0001,
+    depthTest: false,
     color: '#ff88cc'
 })
 const count = 5000
