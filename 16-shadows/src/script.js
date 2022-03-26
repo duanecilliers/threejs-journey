@@ -48,7 +48,8 @@ directionalLight.shadow.camera.bottom = - 2
 directionalLight.shadow.camera.left = - 2
 directionalLight.shadow.camera.near = 1
 directionalLight.shadow.camera.far = 6
-directionalLight.shadow.radius = 10
+// radius doesn't work with this PCFSoftShadowMap
+// directionalLight.shadow.radius = 10
 
 // const directionalLightCameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera)
 // scene.add(directionalLightCameraHelper)
@@ -126,6 +127,8 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.shadowMap.enabled = true
+// radius doesn't work with this map type
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
 /**
  * Animate
