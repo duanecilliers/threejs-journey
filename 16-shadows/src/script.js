@@ -69,6 +69,25 @@ scene.add(spotLight.target)
 // const spotLightCameraHelper = new THREE.CameraHelper(spotLight.shadow.camera)
 // scene.add(spotLightCameraHelper)
 
+// Point Light
+const pointLight = new THREE.PointLight(0xfffffff, 0.3)
+pointLight.castShadow = true
+pointLight.shadow.mapSize.height = 1024
+pointLight.shadow.mapSize.width = 1024
+pointLight.shadow.camera.near = 0.1
+pointLight.shadow.camera.far = 5
+pointLight.position.set(-1, 1, 0)
+scene.add(pointLight)
+
+// const pointLightCameraHelper = new THREE.CameraHelper(pointLight.shadow.camera)
+// scene.add(pointLightCameraHelper)
+
+/**
+ * Shadows.
+ * Multiple light sources results in a crappy result
+ * Rather bake shadows for complex scenes
+ */
+
 /**
  * Materials
  */
