@@ -34,6 +34,7 @@ const particlesMaterial = new THREE.PointsMaterial({
     // alphaTest: 0.0001,
     // depthTest: false,
     depthWrite: false,
+    blending: THREE.AdditiveBlending,
     color: '#ff88cc'
 })
 const count = 5000
