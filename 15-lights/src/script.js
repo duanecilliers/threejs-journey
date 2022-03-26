@@ -1,6 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper'
 import * as dat from 'lil-gui'
 
 /**
@@ -71,6 +72,9 @@ scene.add(pointLightHelper)
 
 const spotLightHelper = new THREE.SpotLightHelper(spotLight)
 scene.add(spotLightHelper)
+
+const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight)
+scene.add(rectAreaLightHelper)
 
 /**
  * Objects
