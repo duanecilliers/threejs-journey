@@ -204,6 +204,7 @@ const createSphere = (radius, position) => {
       material: defaultMaterial
     })
     body.position.copy(position)
+    body.addEventListener('collide', playHitSound)
     world.addBody(body)
 
     objectsToUpdate.push({ mesh, body })
