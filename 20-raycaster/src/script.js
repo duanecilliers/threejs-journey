@@ -74,6 +74,12 @@ window.addEventListener('mousemove', (event) => {
     mouse.y = - (event.clientY / sizes.height) * 2 + 1
 })
 
+window.addEventListener('click', () => {
+    if (currentInterest) {
+        console.log('click on a sphere')
+    }
+})
+
 /**
  * Camera
  */
