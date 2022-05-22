@@ -100,6 +100,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const clock = new THREE.Clock()
 
+let currentInterest = null
+
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
@@ -108,7 +110,9 @@ const tick = () =>
     object2.position.y = Math.sin(elapsedTime * 0.8) * 1.5
     object3.position.y = Math.sin(elapsedTime * 1.4) * 1.5
 
-    // cast a ray
+    /**
+     * Ray cast on mouse enter
+     */
     raycaster.setFromCamera(mouse, camera)
     const testObjects = [object1, object2, object3]
     const intersects = raycaster.intersectObjects(testObjects)
@@ -121,6 +125,21 @@ const tick = () =>
         intersect.object.material.color.set('#0000ff')
     }
 
+    if (intersects.length) {
+        if (currentInterest === null) {
+            console.log('mouse enter')
+        }
+        currentInterest = intersects[0]
+    } else {
+        if (currentInterest) {
+            console.log('mouse leave')
+        }
+        currentInterest = null
+    }
+
+    /**
+     * Raycast horizontally
+     */
     // const rayOrigin = new THREE.Vector3(-3, 0, 0)
     // const rayDirection = new THREE.Vector3(1, 0, 0)
     // rayDirection.normalize()
