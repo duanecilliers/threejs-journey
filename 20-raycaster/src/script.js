@@ -61,6 +61,11 @@ window.addEventListener('resize', () =>
 })
 
 /**
+ * Raycaster
+ */
+const raycaster = new THREE.Raycaster()
+
+/**
  * Camera
  */
 // Base camera
@@ -89,6 +94,26 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    object1.position.y = Math.sin(elapsedTime * 0.3) * 1.5
+    object2.position.y = Math.sin(elapsedTime * 0.8) * 1.5
+    object3.position.y = Math.sin(elapsedTime * 1.4) * 1.5
+
+    const rayOrigin = new THREE.Vector3(-3, 0, 0)
+    const rayDirection = new THREE.Vector3(1, 0, 0)
+    rayDirection.normalize()
+    raycaster.set(rayOrigin, rayDirection)
+
+    const testObjects = [object1, object2, object3]
+    const intersects = raycaster.intersectObjects(testObjects)
+    
+    for (const object of testObjects) {
+        object.material.color.set('#ff0000')
+    }
+
+    for (const intersect of intersects) {
+        intersect.object.material.color.set('#0000ff')
+    }
 
     // Update controls
     controls.update()
