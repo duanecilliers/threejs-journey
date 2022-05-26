@@ -2,6 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import * as dat from 'lil-gui'
 
 /**
@@ -19,22 +20,25 @@ const scene = new THREE.Scene()
 /**
  * Models
  */
+const dracoLoader = new DRACOLoader()
+dracoLoader.setDecoderPath('/draco/')
 const gltfLoader = new GLTFLoader()
-// gltfLoader.load(
-//     '/models/Duck/glTF-Embedded/Duck.gltf',
-//     (gltf) => {
-//         scene.add(gltf.scene.children[0])
-//     }
-// )
+gltfLoader.setDRACOLoader(dracoLoader)
 gltfLoader.load(
-    '/models/FlightHelmet/glTF/FlightHelmet.gltf',
+    '/models/Duck/glTF-Draco/Duck.gltf',
     (gltf) => {
-        // const children = [...gltf.scene.children]
-        // children.forEach(child => scene.add(child))
-
-        scene.add(gltf.scene)
+        scene.add(gltf.scene.children[0])
     }
 )
+// gltfLoader.load(
+//     '/models/FlightHelmet/glTF/FlightHelmet.gltf',
+//     (gltf) => {
+//         // const children = [...gltf.scene.children]
+//         // children.forEach(child => scene.add(child))
+
+//         scene.add(gltf.scene)
+//     }
+// )
 
 /**
  * Floor
