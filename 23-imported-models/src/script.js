@@ -20,10 +20,19 @@ const scene = new THREE.Scene()
  * Models
  */
 const gltfLoader = new GLTFLoader()
+// gltfLoader.load(
+//     '/models/Duck/glTF-Embedded/Duck.gltf',
+//     (gltf) => {
+//         scene.add(gltf.scene.children[0])
+//     }
+// )
 gltfLoader.load(
-    '/models/Duck/glTF/Duck.gltf',
+    '/models/FlightHelmet/glTF/FlightHelmet.gltf',
     (gltf) => {
-        console.log(gltf)
+        // const children = [...gltf.scene.children]
+        // children.forEach(child => scene.add(child))
+
+        scene.add(gltf.scene)
     }
 )
 
