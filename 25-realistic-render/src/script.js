@@ -2,6 +2,25 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+
+/**
+ * Loaders
+ */
+const gltfLoader = new GLTFLoader()
+
+/**
+ * Models
+ */
+gltfLoader.load('/models/FlightHelmet/glTF/FlightHelmet.gltf', (gltf) => {
+    console.log(gltf);
+    gltf.scene.scale.set(10, 10, 10)
+    gltf.scene.position.set(0, -4, 0)
+    gltf.scene.rotation.Y = Math.PI * 0.5
+    scene.add(gltf.scene)   
+
+    gui.add(gltf.scene.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001).name('rotation')
+})
 
 /**
  * Base
@@ -20,9 +39,21 @@ const scene = new THREE.Scene()
  */
 const testSphere = new THREE.Mesh(
     new THREE.SphereGeometry(1, 32, 32),
-    new THREE.MeshBasicMaterial()
+    new THREE.MeshStandardMaterial()
 )
 scene.add(testSphere)
+
+/**
+ * Lights
+ */
+const directionalLight = new THREE.DirectionalLight('#ffffff', 3)
+directionalLight.position.set(0.25, 3, -2.25)
+scene.add(directionalLight)
+
+gui.add(directionalLight, 'intensity').min(0).max(10).step(0.001).name('lightIntensity')
+gui.add(directionalLight.position, 'x').min(-5).max(5).step(0.001).name('lightX')
+gui.add(directionalLight.position, 'y').min(-5).max(5).step(0.001).name('lightY')
+gui.add(directionalLight.position, 'z').min(-5).max(5).step(0.001).name('lightZ')
 
 /**
  * Sizes
@@ -67,6 +98,7 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.physicallyCorrectLights = true
 
 /**
  * Animate
