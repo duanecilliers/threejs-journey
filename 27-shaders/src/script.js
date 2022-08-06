@@ -33,7 +33,8 @@ const material = new THREE.RawShaderMaterial({
     vertexShader: textVertexShader,
     fragmentShader: testFragmentShader,
     // wireframe: true,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
+    transparent: true
 })
 
 // Mesh
