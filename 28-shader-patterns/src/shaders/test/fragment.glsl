@@ -93,9 +93,16 @@ void main()
     // float strength = random(vUv);
 
     // Pattern 24
+    // vec2 gridUv = vec2(
+    //     floor(vUv.x * 10.0) / 10.0,
+    //     floor(vUv.y * 10.0) / 10.0
+    // );
+    // float strength = random(gridUv);
+
+    // Pattern 25
     vec2 gridUv = vec2(
         floor(vUv.x * 10.0) / 10.0,
-        floor(vUv.y * 10.0) / 10.0
+        floor((vUv.y + vUv.x * 0.5) * 10.0) / 10.0
     );
     float strength = random(gridUv);
 
