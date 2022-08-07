@@ -286,6 +286,9 @@ void main()
     // Pattern 49
     float strength = sin(cnoise(vUv * 10.0) * 20.0);
 
+    // Clamp the strength
+    strength = clamp(strength, 0.0, 1.0);
+
     // Coloured version of 49
     vec3 blackColor = vec3(0.0);
     vec3 uvColor = vec3(vUv, 0.5);
