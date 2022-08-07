@@ -41,6 +41,8 @@ const waterMaterial = new THREE.ShaderMaterial({
 
         uDeptchColor: { value: new THREE.Color(debugObject.depthColor) },
         uSurfaceColor: { value: new THREE.Color(debugObject.surfaceColor) },
+        uColorOffset: { value: 0.2 },
+        uColorMultiplier: { value: 2.0 },
     }
 })
 
@@ -48,6 +50,8 @@ gui.add(waterMaterial.uniforms.uBigWavesElevation, 'value', 0, 1).step(0.001).na
 gui.add(waterMaterial.uniforms.uBigWavesFrequency.value, 'x').min(0).max(10).step(0.001).name('uBigWavesFrequency X')
 gui.add(waterMaterial.uniforms.uBigWavesFrequency.value, 'y').min(0).max(10).step(0.001).name('uBigWavesFrequency Y')
 gui.add(waterMaterial.uniforms.uBigWavesSpeed, 'value', 0, 1).step(0.001).name('uBigWavesSpeed')
+gui.add(waterMaterial.uniforms.uColorOffset, 'value', 0, 1).step(0.001).name('uColorOffset')
+gui.add(waterMaterial.uniforms.uColorMultiplier, 'value', 0, 1).step(0.001).name('uColorMultiplier')
 gui.addColor(debugObject, 'depthColor').name('depthColor').onChange(color => {
     waterMaterial.uniforms.uDeptchColor.value.set(color)
 })
