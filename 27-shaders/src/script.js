@@ -44,6 +44,7 @@ const material = new THREE.RawShaderMaterial({
     uniforms: {
         uFrequency: { value: new THREE.Vector2(10, 5) },
         uTime: { value: 0 },
+        uColor: { value: new THREE.Color('orange') }
     },
     // wireframe: true,
     side: THREE.DoubleSide,
